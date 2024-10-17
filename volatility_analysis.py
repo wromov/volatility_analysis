@@ -2,6 +2,7 @@ from data_handler import DataHandler
 from volatility_calculator import VolatilityCalculator
 from visualizer import Visualizer
 from datetime import datetime, timedelta, date
+import os
 
 iv_date = date.today() #- timedelta(days=4)# Example date, adjust as needed
 
@@ -14,9 +15,10 @@ tickers = data_handler.load_tickers()
 if tickers is None:
     exit()
 
-# Set the folder paths directly to the absolute paths
-daily_folder_path = "D:/Scripts/IBKR/daily-bars"
-options_data_folder_path = "D:/Scripts/IBKR/options-data"
+# Set the folder paths relative to the current working directory    
+current_dir = os.path.dirname(os.path.abspath(__file__))    
+daily_folder_path = os.path.join(current_dir, "daily-bars")
+options_data_folder_path = os.path.join(current_dir, "options-data")
 
 # Initialize VolatilityCalculator
 vol_calculator = VolatilityCalculator(data_handler, visualizer)
